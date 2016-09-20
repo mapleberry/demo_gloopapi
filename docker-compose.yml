@@ -1,0 +1,42 @@
+web:
+  build: .
+  environment:
+    - PORT=8080
+    - LOG_LEVEL=info
+    - LOG_LEVEL=debug
+    - ENV=local
+    - STATSD_ENABLED=false
+    - STATSD_HOST=datadog
+    - STATSD_PORT=8125
+  ports:
+    - "8080:8080"
+#  links:
+#    - datadog
+  volumes:
+  - ./server:/usr/src/app/server
+  - ./test:/usr/src/app/test
+  - ./package.json:/usr/src/app/package.json
+  command: npm run dev
+
+#datadog:
+#  image: datadog/docker-dd-agent
+#  environment:
+#     - API_KEY=__your_datadog_api_key_here__
+#     - DOGSTATSD_ONLY=true
+#  volumes:
+#    - /var/run/docker.sock:/var/run/docker.sock
+#    - /proc/mounts:/host/proc/mounts:ro
+#    - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+#  ports:
+#    - "8125:8125/udp"
+
+acceptance_test:
+  build: acceptance-test
+  environment:
+    - SERVICE_BASE_URL=http://web:8080
+  working_dir: /usr/src/acceptance-test
+  links:
+    - web
+  volumes:
+    - ./acceptance-test/test:/usr/src/acceptance-test/test
+  command: npm start

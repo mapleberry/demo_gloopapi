@@ -1,0 +1,8 @@
+{
+  "PORT": 8080,
+  "ENV": "local",
+  "STATSD_ENABLED": "false",
+  "STATSD_HOST": "127.0.0.1",
+  "STATSD_PORT": 32362,
+  "COMPONENT_NAME": "es6-project-template"
+}

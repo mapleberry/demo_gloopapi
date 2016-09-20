@@ -1,0 +1,17 @@
+{
+  "name": "acceptance-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/mocha/bin/mocha ./test/*.spec.js",
+    "local": "SERVICE_BASE_URL=http://localhost:8080 npm start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^3.0.2",
+    "must": "^0.13.2",
+    "supertest": "^2.0.0"
+  }
+}

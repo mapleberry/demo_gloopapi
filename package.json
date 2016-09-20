@@ -1,0 +1,55 @@
+{
+  "name": "es6-project-template",
+  "version": "1.0.1",
+  "description": "ES 2005 project template for an Express.js and Node 6 apps",
+  "engines": {
+    "node": "6"
+  },
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/src/index.js",
+    "test": "npm run lint -s && npm run unit-test -s",
+    "dev": "nodemon ./server/src/index.js",
+    "watch": "nodemon -x 'npm test -s'",
+    "lint": "standard",
+    "acc-test": "./run-acceptance-tests.sh",
+    "unit-test": "mocha --recursive server/test/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://git@bitbucket.org:ofalat/es6-project-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/ofalat/es6-project-template/issues"
+  },
+  "homepage": "https://bitbucket.org/ofalat/es6-project-template/#readme",
+  "dependencies": {
+    "connect-datadog": "0.0.6",
+    "convict": "^1.0.4",
+    "express": "^4.14.0",
+    "lodash": "^4.16.1",
+    "morgan": "^1.7.0",
+    "node-statsd": "^0.1.1",
+    "winston": "^2.2.0"
+  },
+  "standard": {
+    "globals": [
+      "it",
+      "describe",
+      "before",
+      "after",
+      "beforeEach",
+      "afterEach"
+    ]
+  },
+  "devDependencies": {
+    "mocha": "^3.0.2",
+    "must": "^0.13.2",
+    "nodemon": "^1.10.2",
+    "sinon": "^1.17.6",
+    "standard": "^8.1.0",
+    "supertest": "^2.0.0"
+  }
+}
