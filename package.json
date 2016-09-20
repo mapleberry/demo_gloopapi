@@ -1,7 +1,7 @@
 {
-  "name": "es6-project-template",
-  "version": "1.0.1",
-  "description": "ES 2005 project template for an Express.js and Node 6 apps",
+  "name": "demo-gloopapi",
+  "version": "1.0.0",
+  "description": "ES 2005 Gloop Api Demo",
   "engines": {
     "node": "6"
   },
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://git@bitbucket.org:ofalat/es6-project-template.git"
+    "url": "git+https://github.com/mapleberry/demo_gloopapi"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://bitbucket.org/ofalat/es6-project-template/issues"
+    "url": "https://github.com/mapleberry/demo_gloopapi/issues"
   },
-  "homepage": "https://bitbucket.org/ofalat/es6-project-template/#readme",
+  "homepage": "https://github.com/mapleberry/demo_gloopapi#readme",
   "dependencies": {
     "connect-datadog": "0.0.6",
     "convict": "^1.0.4",
