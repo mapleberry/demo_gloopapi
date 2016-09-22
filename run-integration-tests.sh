@@ -7,5 +7,5 @@ fi
 
 
 docker-compose build
-docker-compose run --rm web npm run unit-test
+docker-compose run --rm web npm run integration-test
 docker-compose stop

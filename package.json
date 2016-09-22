@@ -8,12 +8,13 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/src/index.js",
-    "test": "npm run lint -s && npm run unit-test -s",
+    "test": "npm run lint -s && npm run unit-test && npm run integration-test",
     "dev": "nodemon ./server/src/index.js",
     "watch": "nodemon -x 'npm test -s'",
     "lint": "standard",
-    "acc-test": "./run-acceptance-tests.sh",
-    "unit-test": "mocha --recursive server/test/**"
+    "acceptance-test": "./run-acceptance-tests.sh",
+    "unit-test": "mocha --recursive server/test/unit/**",
+    "integration-test": "mocha --recursive server/test/integration/**"
   },
   "repository": {
     "type": "git",
@@ -26,10 +27,12 @@
   },
   "homepage": "https://github.com/mapleberry/demo_gloopapi#readme",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "connect-datadog": "0.0.6",
     "convict": "^1.0.4",
     "express": "^4.14.0",
     "lodash": "^4.16.1",
+    "mongodb": "^2.2.10",
     "morgan": "^1.7.0",
     "node-statsd": "^0.1.1",
     "winston": "^2.2.0"
@@ -45,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "mocha": "^3.0.2",
     "must": "^0.13.2",
     "nodemon": "^1.10.2",

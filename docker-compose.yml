@@ -10,8 +10,9 @@ web:
     - STATSD_PORT=8125
   ports:
     - "8080:8080"
-#  links:
+  links:
 #    - datadog
+     - mongodb
   volumes:
   - ./server:/usr/src/app/server
   - ./test:/usr/src/app/test
@@ -29,6 +30,12 @@ web:
 #    - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
 #  ports:
 #    - "8125:8125/udp"
+
+mongodb:
+  image: mongo
+  ports:
+    - "27017:27017"
+  command: "--smallfiles"
 
 acceptance_test:
   build: acceptance-test
