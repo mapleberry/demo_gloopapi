@@ -1,8 +1,8 @@
 'use strict'
 
 const sinon = require('sinon')
-require('must/register')
-
+const chai = require('chai')
+const expect = chai.expect
 const createHelloService = require('../../../src/services/hello-world')
 const helpers = require('./../helpers')
 
@@ -22,13 +22,11 @@ describe('hello service', () => {
         statsd: fakeStatsd
       })
 
-      // act
       const message = helloService.sayHelloWorld()
 
-      // assert
-      message.must.eql("Hello World, I'm running on local environment !!!")
-      logInfoSpy.calledOnce.must.be.true()
-      statsdIncrSpy.calledOnce.must.be.true()
+      expect(message).to.equal("Hello World, I'm running on local environment !!!")
+      expect(logInfoSpy.calledOnce).to.be.true
+      expect(statsdIncrSpy.calledOnce).to.be.true
     })
   })
 })
