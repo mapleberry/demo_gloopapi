@@ -3,15 +3,17 @@ const morgan = require('morgan')
 const setErrorHandlers = require('./set-error-handlers')
 const createInternalRouter = require('./routes/internal')
 const createHelloRouter = require('./routes/hello')
+const createUserRouter = require('./routes/user')
 
 module.exports = createAndConfigureApp
 
-function createAndConfigureApp ({config, logger, statsd, helloService}) {
+function createAndConfigureApp ({config, logger, statsd, helloService, userService}) {
   const app = express()
 
   setAccessLogs(app)
-  app.use('/internal', createInternalRouter({config, logger}))
   app.use('/', createHelloRouter({statsd, helloService}))
+  app.use('/internal', createInternalRouter({config, logger}))
+  app.use('/user', createUserRouter({userService}))
 
   setErrorHandlers({app, logger, statsd})
 

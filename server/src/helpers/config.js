@@ -50,14 +50,14 @@ function getConfig () {
         format: 'port',
         env: 'STATSD_PORT',
         default: null
-      },
-      mongodb: {
-        uri: {
-          doc: 'MongoDb uri',
-          format: String,
-          env: 'MONGODB_URI',
-          default: 'mongodb://mongodb:27017/gloopapi'
-        }
+      }
+    },
+    mongodb: {
+      uri: {
+        doc: 'MongoDb uri',
+        format: String,
+        env: 'MONGODB_URI',
+        default: 'mongodb://mongodb:27017/gloopapi'
       }
     }
   })

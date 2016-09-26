@@ -27,7 +27,7 @@ describe('Mongo client', () => {
     const invalidConnectionString = 'mongodb://mongodb:27018/gloopapi_test'
     sandbox.spy(internalMongoClient, 'connect')
 
-    mongoClient(invalidConnectionString, 1).connect()
+    mongoClient(invalidConnectionString, 100).connect()
     setTimeout(() => {
       expect(internalMongoClient.connect.callCount).to.be.above(2)
       done()

@@ -8,6 +8,7 @@ module.exports = userService
 function userService (connectionString) {
   return mongoClient(connectionString).connect().then(db => {
     const collection = db.collection('user')
+    console.log('user service created')
     return {
       get (id) {
         return collection.find({_id: id}).toArray().then(result => {

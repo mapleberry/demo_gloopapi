@@ -6,7 +6,7 @@ const mongoClient = mongodb.MongoClient
 const logger = createLogger(module)
 const Promise = require('bluebird')
 
-module.exports = (connectionString, backoffTime = 500) => {
+module.exports = (connectionString, backoffTime = 1000) => {
   return {
 
     connect () {

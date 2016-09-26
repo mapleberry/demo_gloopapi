@@ -3,9 +3,11 @@ const createLogger = require('./helpers/logger')
 const statsd = require('./helpers/statsd')
 const createAndConfigureApp = require('./app')
 const createHelloService = require('./services/hello-world')
+const createUserService = require('./services/user-service')
 
 const logger = createLogger(module)
 config.logCurrentConfig(logger)
+setupProcessHooks()
 
 const helloService = createHelloService({
   logger,
@@ -13,19 +15,18 @@ const helloService = createHelloService({
   statsd
 })
 
-const {startApp} = createAndConfigureApp({helloService, logger, config, statsd})
-
-setupProcessHooks()
-
-startApp()
-  .then(() => {
-    statsd.increment('started')
-    logger.info('Service is up')
-  })
-  .catch(err => {
-    logger.error('Startup error', err)
-    exitProcessWithError('Startup error')
-  })
+createUserService(config.get('mongodb').uri)
+    .then(userService => {
+      const {startApp} = createAndConfigureApp({helloService, logger, config, statsd, userService})
+      startApp().then(() => {
+        statsd.increment('started')
+        logger.info('Service is up')
+      })
+            .catch(err => {
+              logger.error('Startup error', err)
+              exitProcessWithError('Startup error')
+            })
+    })
 
 function setupProcessHooks () {
   process.on('uncaughtException', (err) => {
