@@ -2,6 +2,8 @@
 
 const mongoClient = require('./mongo-client')
 const uuid = require('uuid')
+const errors = require('./../errors')
+const UserNotFound = errors.UserNotFound;
 
 module.exports = userService
 
@@ -15,7 +17,7 @@ function userService (connectionString) {
           if (result.length > 0) {
             return result[0]
           }
-          throw new Error(`User[${id}] not found`)
+          throw new UserNotFound(`User[${id}] not found`)
         })
       },
       insert (user) {

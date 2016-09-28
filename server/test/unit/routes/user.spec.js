@@ -5,6 +5,8 @@ const sinon = require('sinon')
 const express = require('express')
 const app = express()
 const createUserRoute = require('../../../src/app/routes/user')
+const errors = require('./../../../src/errors')
+const UserNotFound = errors.UserNotFound
 const userService = {
   get (id) {
     return Promise.resolve()
@@ -39,10 +41,17 @@ describe('user routes', () => {
   })
 
   it('returns 404 when user not found', done => {
-    sandbox.stub(userService, 'get').returns(Promise.reject())
+    sandbox.stub(userService, 'get').returns(Promise.reject(new UserNotFound()))
     request(app)
             .get('/user/1')
             .expect(404, done)
+  })
+
+  it('returns 500 when error occurs', done => {
+    sandbox.stub(userService, 'get').returns(Promise.reject())
+    request(app)
+        .get('/user/1')
+        .expect(500, done)
   })
 
   describe('POST /', () => {
