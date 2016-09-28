@@ -1,9 +1,6 @@
 const express = require('express')
-
-module.exports = createUserRouter
 const errors = require('./../../errors')
 const UserNotFound = errors.UserNotFound;
-
 
 function createUserRouter ({userService}) {
   const router = express.Router()
@@ -22,3 +19,5 @@ function createUserRouter ({userService}) {
 
   return router
 }
+
+module.exports = createUserRouter
