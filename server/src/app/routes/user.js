@@ -1,6 +1,6 @@
 const express = require('express')
 const errors = require('./../../errors')
-const UserNotFound = errors.UserNotFound;
+const UserNotFound = errors.UserNotFound
 
 function createUserRouter ({userService}) {
   const router = express.Router()
@@ -8,10 +8,9 @@ function createUserRouter ({userService}) {
     userService.get(req.params.id)
                .then(user => res.send(user))
                .catch(err => {
-                 if(err instanceof UserNotFound) {
+                 if (err instanceof UserNotFound) {
                    res.status(404).send(err)
-                 }
-                 else {
+                 } else {
                    res.sendStatus(500)
                  }
                })

@@ -1,14 +1,13 @@
 'use strict'
 
-const mongoClient = require('./mongo-client')
 const uuid = require('uuid')
 const errors = require('./../errors')
-const UserNotFound = errors.UserNotFound;
+const UserNotFound = errors.UserNotFound
 
 module.exports = userService
 
-function userService (connectionString) {
-  return mongoClient(connectionString).connect().then(db => {
+function userService (mongoClient) {
+  return mongoClient.connect().then(db => {
     const collection = db.collection('user')
     console.log('user service created')
     return {

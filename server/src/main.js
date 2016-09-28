@@ -3,7 +3,10 @@ const createLogger = require('./helpers/logger')
 const statsd = require('./helpers/statsd')
 const createAndConfigureApp = require('./app')
 const createHelloService = require('./services/hello-world')
+const createMongoClient = require('./services/mongo-client')
 const createUserService = require('./services/user-service')
+const connectionString = config.get('mongodb').uri
+const mongoClient = createMongoClient(connectionString)
 
 const logger = createLogger(module)
 config.logCurrentConfig(logger)
@@ -15,7 +18,7 @@ const helloService = createHelloService({
   statsd
 })
 
-createUserService(config.get('mongodb').uri)
+createUserService(mongoClient)
     .then(userService => {
       const {startApp} = createAndConfigureApp({helloService, logger, config, statsd, userService})
       startApp().then(() => {

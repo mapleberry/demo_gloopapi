@@ -2,6 +2,8 @@
 
 const newUserService = require('../../src/services/user-service')
 const connectionString = 'mongodb://mongodb:27017/gloopapi_test'
+const createMongoClient = require('./../../src/services/mongo-client')
+const mongoClient = createMongoClient(connectionString)
 const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised')
 const expect = chai.expect
@@ -10,7 +12,7 @@ chai.use(chaiAsPromised)
 
 describe('user service', () => {
   it('should insert, get and delete a user', () => {
-    const userService = newUserService(connectionString)
+    const userService = newUserService(mongoClient)
     const user = {
       email: 'test@test.com', password: 'password'
     }
@@ -25,6 +27,10 @@ describe('user service', () => {
             .tap(id => service.delete(id))
             .then(id => expect(service.get(id)).be.rejected)
         )
+  })
+
+  it('should update user data', () => {
+
   })
 
   it('should partially update user data', () => {
