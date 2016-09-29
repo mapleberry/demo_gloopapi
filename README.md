@@ -1,5 +1,4 @@
-# es6-template-project
-ES 2005 project template for an Express.js and [Node 6](https://nodejs.org/dist/latest-v6.x/docs/api/) apps
+# Demo Gloopapi
 
 If you're using Docker, skip to [that section](#using-docker).
 
@@ -41,18 +40,6 @@ restart the app and re-run all unit tests.
 ```
 ./run-acceptance-tests.sh
 ```
-
-# Usage
-
-In order to create a new project based on this this template you need to:
-
-```shell
-git clone git@bitbucket.org:ofalat/es6-project-template.git new-project
-cd new-project
-rm -rf .git
-git init
-```
-
 
 # Environment variables
 
