@@ -3,6 +3,7 @@
 const uuid = require('uuid')
 const errors = require('./../errors')
 const UserNotFound = errors.UserNotFound
+const md5 = require('md5')
 
 module.exports = userService
 
@@ -21,6 +22,8 @@ function userService (mongoClient) {
       },
       insert (user) {
         user.uuid = uuid.v1()
+        user.created = new Date()
+        user.password = md5(user.password)
         return collection.insertOne(user).then(result => result.insertedId)
       },
       delete (id) {
