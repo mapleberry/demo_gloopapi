@@ -1,5 +1,8 @@
-// init checks for the env var SERVICE_BASE_URL, and returns a supertest object bound to that URL
 'use strict'
+
+const Promise = require('bluebird')
+const retry = require('bluebird-retry')
+const rp = require('request-promise')
 
 const u = require('./util')
 let serviceBaseUrl = process.env['SERVICE_BASE_URL']
@@ -9,4 +12,10 @@ if (!u.isNonBlankString(serviceBaseUrl)) {
 console.log('SERVICE_BASE_URL:', serviceBaseUrl)
 serviceBaseUrl = u.stripTrailingSlash(serviceBaseUrl)
 
-module.exports = require('supertest')(serviceBaseUrl)
+function isWebsiteAvailable() {
+    return rp.get(serviceBaseUrl + '/internal/healthcheck')
+}
+
+module.exports = () => {
+    return retry(isWebsiteAvailable, {max_tries: 20, interval: 1000}).then(() => serviceBaseUrl)
+}

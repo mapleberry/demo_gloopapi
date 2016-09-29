@@ -1,18 +1,28 @@
-const request = require('./init')
+const init = require('./init')
+const Promise = require('bluebird')
+const rp = require('request-promise')
 
-describe('/internal', () => {
-  it('/healthcheck returns a 200 OK', done => {
-    request.get('/internal/healthcheck')
-      .expect(200, done)
-  })
+let baseUrl
 
-  it('/log-config returns a 200 OK', done => {
-    request.get('/internal/log-config')
-      .expect(200, done)
-  })
+describe('/internal', function () {
+    this.timeout(5000)
+    before(() => {
+        return init().tap(url => {
+            baseUrl = url
+        })
+    })
 
-  it('/simulate-error returns a 500 status', done => {
-    request.get('/internal/simulate-error')
-      .expect(500, done)
-  })
+    it('/healthcheck returns a 200 OK', () => {
+        return rp.get(`${baseUrl}/internal/healthcheck`)
+    })
+
+    it('/log-config returns a 200 OK', () => {
+        return rp.get(`${baseUrl}/internal/log-config`)
+    })
+
+    // it('/simulate-error returns a 500 status', () => {
+    //     return rp.get(`${baseUrl}/internal/simulate-error`)
+    //     init.then(r => r.get('/internal/simulate-error')
+    //         .expect(500, done))
+    // })
 })

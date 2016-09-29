@@ -19,6 +19,29 @@ web:
   - ./package.json:/usr/src/app/package.json
   command: npm run dev
 
+
+webonly:
+  build: .
+  environment:
+    - PORT=8080
+    - LOG_LEVEL=info
+    - LOG_LEVEL=debug
+    - ENV=local
+    - STATSD_ENABLED=false
+    - STATSD_HOST=datadog
+    - STATSD_PORT=8125
+  ports:
+    - "8080:8080"
+  links:
+#    - datadog
+     - mongodb
+  volumes:
+  - ./server:/usr/src/app/server
+  - ./test:/usr/src/app/test
+  - ./package.json:/usr/src/app/package.json
+  command: npm start
+
+
 #datadog:
 #  image: datadog/docker-dd-agent
 #  environment:
@@ -40,10 +63,10 @@ mongodb:
 acceptance_test:
   build: acceptance-test
   environment:
-    - SERVICE_BASE_URL=http://web:8080
+    - SERVICE_BASE_URL=http://webonly:8080
   working_dir: /usr/src/acceptance-test
   links:
-    - web
+    - webonly
   volumes:
     - ./acceptance-test/test:/usr/src/acceptance-test/test
   command: npm start
