@@ -61,12 +61,12 @@ mongodb:
   command: "--smallfiles"
 
 acceptance_test:
-  build: acceptance-test
+  build: server/test/acceptance-test
   environment:
     - SERVICE_BASE_URL=http://webonly:8080
   working_dir: /usr/src/acceptance-test
   links:
     - webonly
   volumes:
-    - ./acceptance-test/test:/usr/src/acceptance-test/test
+    - ./server/test/acceptance-test/test:/usr/src/acceptance-test/test
   command: npm start

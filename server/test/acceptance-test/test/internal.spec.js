@@ -5,20 +5,20 @@ const rp = require('request-promise')
 let baseUrl
 
 describe('/internal', function () {
-    this.timeout(5000)
-    before(() => {
-        return init().tap(url => {
-            baseUrl = url
-        })
+  this.timeout(5000)
+  before(() => {
+    return init().tap(url => {
+      baseUrl = url
     })
+  })
 
-    it('/healthcheck returns a 200 OK', () => {
-        return rp.get(`${baseUrl}/internal/healthcheck`)
-    })
+  it('/healthcheck returns a 200 OK', () => {
+    return rp.get(`${baseUrl}/internal/healthcheck`)
+  })
 
-    it('/log-config returns a 200 OK', () => {
-        return rp.get(`${baseUrl}/internal/log-config`)
-    })
+  it('/log-config returns a 200 OK', () => {
+    return rp.get(`${baseUrl}/internal/log-config`)
+  })
 
     // it('/simulate-error returns a 500 status', () => {
     //     return rp.get(`${baseUrl}/internal/simulate-error`)
