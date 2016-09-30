@@ -26,6 +26,11 @@ function userService(mongoClient) {
                 user.password = md5(user.password)
                 return collection.insertOne(user).then(result => result.insertedId)
             },
+            update(id, user) {
+                user.updated = new Date()
+                delete user.password
+                return collection.updateOne({_id: id}, {$set: user}, {upsert: true}).then(() => id)
+            },
             delete (id) {
                 return collection.removeOne({_id: id})
             }

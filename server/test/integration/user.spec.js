@@ -33,10 +33,64 @@ describe('user service', () => {
     })
 
     it('should update user data', () => {
-
+        const userService = newUserService(mongoClient)
+        const user = {
+            email: 'test@test.com', password: 'password'
+        }
+        const scope = {}
+        return userService.then(service => service.insert(user)
+            .tap(id => {
+                scope.id = id
+            })
+            .tap(() => {
+                user.email = 'test-update@test.com'
+                return service.update(scope.id, user)
+            })
+            .then(() => service.get(scope.id)
+        )).then(user => {
+            expect(user.updated instanceof Date).to.be.true
+            expect(user.email).be.be.equal('test-update@test.com')
+        })
     })
 
     it('should partially update user data', () => {
+        const userService = newUserService(mongoClient)
+        const user = {
+            email: 'test@test.com', password: 'password'
+        }
+        const scope = {}
+        return userService.then(service => service.insert(user)
+            .tap(id => {
+                scope.id = id
+            })
+            .tap(() => {
+                user.email = 'test-update@test.com'
+                return service.update(scope.id, {name: 'User name'})
+            })
+            .then(() => service.get(scope.id)
+            )).then(user => {
+            expect(user.email).be.be.equal('test@test.com')
+            expect(user.name).be.be.equal('User name')
+        })
+    })
 
+    it('should not update password', () => {
+        const userService = newUserService(mongoClient)
+        const user = {
+            email: 'test@test.com', password: 'password'
+        }
+        const scope = {}
+        return userService.then(service => service.insert(user)
+            .tap(id => {
+                scope.id = id
+            })
+            .tap(() => {
+                user.email = 'test-update@test.com'
+                return service.update(scope.id, {password: 'newpassword'})
+            })
+            .then(() => service.get(scope.id)
+            )).then(user => {
+            expect(user.password).be.be.equal(md5('password'))
+        })
     })
 })
