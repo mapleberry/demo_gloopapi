@@ -86,13 +86,25 @@ describe('user routes', () => {
         it('returns 500 when error occurs', done => {
             sandbox.stub(userService, 'update').returns(Promise.reject())
             request(app)
-                .put('/user')
+                .put('/user', {email: 'test@test.com'})
                 .expect(500, done)
         })
     })
 
     describe('PATCH /', () => {
+        it('return 200 when updating', done => {
+            sandbox.stub(userService, 'update').returns(Promise.resolve())
+            request(app)
+                .patch('/user/1', {email: 'test@test.com'})
+                .expect(200, done)
+        })
 
+        it('returns 500 when error occurs', done => {
+            sandbox.stub(userService, 'update').returns(Promise.reject())
+            request(app)
+                .patch('/user/1', {email: 'test@test.com'})
+                .expect(500, done)
+        })
     })
 
     describe('DELETE /', () => {

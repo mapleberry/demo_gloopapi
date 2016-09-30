@@ -34,6 +34,15 @@ function createUserRouter({userService, logger}) {
             })
     })
 
+    router.patch('/:id', (req, res) => {
+        userService.update(req.params.id, res.body)
+            .then(() => res.sendStatus(200))
+            .catch(err => {
+                logger.error('PATCH failed, error:', err)
+                res.sendStatus(500)
+            })
+    })
+
     router.delete('/:id', (req, res) => {
 
     })
