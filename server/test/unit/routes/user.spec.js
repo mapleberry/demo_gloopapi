@@ -14,6 +14,9 @@ const userService = {
     },
     update (id, user) {
         return Promise.resolve()
+    },
+    delete (id) {
+        return Promise.resolve()
     }
 }
 const logger = helpers.getFakeLogger()
@@ -60,7 +63,7 @@ describe('user routes', () => {
     })
 
     describe('POST /', () => {
-        it('return 200 when updating', done => {
+        it('returns 200 when updating', done => {
             sandbox.stub(userService, 'update').returns(Promise.resolve())
             request(app)
                 .post('/user/1', {email: 'test@test.com'})
@@ -76,7 +79,7 @@ describe('user routes', () => {
     })
 
     describe('PUT /', () => {
-        it('return 201 when updating', done => {
+        it('returns 201 when creating', done => {
             sandbox.stub(userService, 'update').returns(Promise.resolve())
             request(app)
                 .put('/user', {email: 'test@test.com'})
@@ -92,7 +95,7 @@ describe('user routes', () => {
     })
 
     describe('PATCH /', () => {
-        it('return 200 when updating', done => {
+        it('returns 200 when patching', done => {
             sandbox.stub(userService, 'update').returns(Promise.resolve())
             request(app)
                 .patch('/user/1', {email: 'test@test.com'})
@@ -108,6 +111,18 @@ describe('user routes', () => {
     })
 
     describe('DELETE /', () => {
+        it('returns 200 when updating', done => {
+            sandbox.stub(userService, 'delete').returns(Promise.resolve())
+            request(app)
+                .delete('/user/1')
+                .expect(200, done)
+        })
 
+        it('returns 500 when error occurs', done => {
+            sandbox.stub(userService, 'delete').returns(Promise.reject())
+            request(app)
+                .delete('/user/1')
+                .expect(500, done)
+        })
     })
 })
