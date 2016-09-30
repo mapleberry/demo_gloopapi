@@ -7,6 +7,7 @@ const app = express()
 const createUserRoute = require('../../../src/app/routes/user')
 const errors = require('./../../../src/errors')
 const UserNotFound = errors.UserNotFound
+const helpers = require('./../helpers')
 const userService = {
     get (id) {
         return Promise.resolve()
@@ -15,7 +16,8 @@ const userService = {
         return Promise.resolve()
     }
 }
-const userRouter = createUserRoute({userService})
+const logger = helpers.getFakeLogger()
+const userRouter = createUserRoute({userService, logger})
 
 app.use('/user', userRouter)
 

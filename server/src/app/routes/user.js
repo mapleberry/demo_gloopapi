@@ -2,7 +2,7 @@ const express = require('express')
 const errors = require('./../../errors')
 const UserNotFound = errors.UserNotFound
 
-function createUserRouter({userService}) {
+function createUserRouter({userService, logger}) {
     const router = express.Router()
     router.get('/:id', (req, res) => {
         userService.get(req.params.id)
@@ -20,6 +20,7 @@ function createUserRouter({userService}) {
         userService.update(req.params.id, res.body)
             .then(() => res.sendStatus(201))
             .catch(err => {
+                logger.error('PUT failed, error:', err)
                 res.sendStatus(500)
             })
     })
@@ -28,6 +29,7 @@ function createUserRouter({userService}) {
         userService.update(req.params.id, res.body)
             .then(() => res.sendStatus(200))
             .catch(err => {
+                logger.error('POST failed, error:', err)
                 res.sendStatus(500)
             })
     })

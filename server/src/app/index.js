@@ -13,7 +13,7 @@ function createAndConfigureApp ({config, logger, statsd, helloService, userServi
   setAccessLogs(app)
   app.use('/', createHelloRouter({statsd, helloService}))
   app.use('/internal', createInternalRouter({config, logger}))
-  app.use('/user', createUserRouter({userService}))
+  app.use('/user', createUserRouter({userService, logger}))
 
   setErrorHandlers({app, logger, statsd})
 
