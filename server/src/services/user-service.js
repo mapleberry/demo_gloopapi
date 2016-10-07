@@ -21,7 +21,7 @@ function userService(mongoClient) {
                 })
             },
             insert (user) {
-                user.uuid = uuid.v1()
+                user.uuid = uuid.v4()
                 user.created = new Date()
                 user.password = md5(user.password)
                 return collection.insertOne(user).then(result => result.insertedId)
